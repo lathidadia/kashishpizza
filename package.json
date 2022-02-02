@@ -1,0 +1,37 @@
+{
+  "name": "kashishpizza",
+  "version": "1.0.0",
+  "description": "This is a chance to test es6 with node 9.3",
+  "main": "assignment1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node assignment1.js",
+    "dev": "node assignment1.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lathidadia/kashishpizza.git"
+  },
+  "keywords": [
+    "node",
+    "es6",
+    "problem",
+    "solving"
+  ],
+  "author": "Kashish Lathidadia",
+  "license": "",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+    "express": "^4.17.2"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ],
+    "sourceMaps": true,
+    "retainLines": true
+  }
+}
