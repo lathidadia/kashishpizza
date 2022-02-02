@@ -156,7 +156,6 @@ module.exports = class PizzaOrder extends Order{
                 } 
                 if(this.error == "")
                     {
-                        this.sTotal += 1;
                         aReturn.push("Thank-you for your order of");
                         aReturn.push(`${this.sSize} ${this.sItem} with ${this.sToppings}`);
                         if(this.sDrinks != ""){
