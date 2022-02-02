@@ -5,7 +5,8 @@ const OrderState = Object.freeze({
     SIZE:   Symbol("size"),
     TOPPINGS:   Symbol("toppings"),
     DRINKS:  Symbol("drinks"),
-    DIPS:  Symbol("dips")
+    DIPS:  Symbol("dips"),
+    ITEM:  Symbol("item")
 });
 
 module.exports = class PizzaOrder extends Order{
@@ -16,7 +17,7 @@ module.exports = class PizzaOrder extends Order{
         this.sToppings = "";
         this.sDrinks = "";
         this.sDips = "";
-        this.sItem = "pizza";
+        this.sItem = "";
         this.sTotal = 0;
         this.error = "";
     }
@@ -24,26 +25,62 @@ module.exports = class PizzaOrder extends Order{
         let aReturn = [];
         switch(this.stateCur){
             case OrderState.WELCOMING:
-                this.stateCur = OrderState.SIZE;
+                this.stateCur = OrderState.ITEM;
                 aReturn.push("Welcome to Kashish's Pizza.");
-                aReturn.push("What size pizza would you like?\n 1.Small, 2.Medium, 3.Large");
+                aReturn.push("What item would you like?\n 1.Pizza, 2.Burger, 3.Sub");
                 break;
-
+            case OrderState.ITEM:
+                switch (sInput.toLowerCase()){
+                    case "1":
+                    case "Pizza":
+                        this.sTotal = 15;
+                        this.sItem = "Pizza";                       
+                        break;
+                    case "2":
+                    case "Burger":
+                        this.sTotal = 5;
+                        this.sItem = "Burger";                        
+                        break;
+                    case "3":
+                    case "Sub":
+                        this.sTotal = 10;
+                        this.sItem = "Sub";
+                        break;
+                    default:
+                        this.stateCur = OrderState.ITEM;                        
+                        this.error = "Please try again.\nWhat item would you like?\n 1.Pizza, 2.Burger, 3.Sub";
+                        break;
+                }
+                if(this.error == "")
+                    {
+                        if(this.sItem == "Pizza"){
+                            aReturn.push("What size pizza would you like?\n 1.Small, 2.Medium, 3.Large");
+                            this.stateCur = OrderState.SIZE;
+                        }
+                        else{
+                            aReturn.push("What toppings would you like?");
+                            this.stateCur = OrderState.TOPPINGS;
+                        }
+                        
+                    }
+                else
+                    aReturn.push(this.error)
+                this.error = "";
+                break;
             case OrderState.SIZE:
                 switch (sInput.toLowerCase()){
                     case "1":
                     case "small":
-                        this.sTotal = 5;
                         this.sSize = "Small";                       
                         break;
                     case "2":
                     case "medium":
-                        this.sTotal = 10;
+                        this.sTotal += 5;
                         this.sSize = "Medium";                        
                         break;
                     case "3":
                     case "large":
-                        this.sTotal = 15;
+                        this.sTotal = 10;
                         this.sSize = "Large";
                         break;
                     default:
